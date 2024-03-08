@@ -52,6 +52,7 @@ const router = createBrowserRouter([
                         action: editAction,
                     },
                     {
+                        // <Form method="post" action="destroy"> 匹配 contacts/:contactId/destroy
                         path: "contacts/:contactId/destroy",
                         action: destroyAction,
                         errorElement: <div>Oops! There was an error.</div>,

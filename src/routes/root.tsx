@@ -1,6 +1,6 @@
 import {
     Outlet, useLoaderData, Form, redirect, NavLink,
-    useNavigation, LoaderFunctionArgs, useSubmit,
+    useNavigation, LoaderFunctionArgs, useSubmit, useNavigate,
 } from "react-router-dom";
 import { getContacts, createContact, Contacts } from "../contacts.ts";
 import { useEffect } from "react";
@@ -50,18 +50,26 @@ export default function Root() {
      * 可使用useRouteLoaderData获取页面上其他路由loader返回的数据。
      */
     const { contacts, q } = useLoaderData() as { contacts: Contacts[], q: string }
-    /*
-    * 页面导航信息 navigation.state
+
+    /**
+    * 页面导航信息
+    * navigation.state
     * idle: 空闲
-    * submitting: 路由 action 被调用
-    * loading: 下一个路由 loader 被调用
-    * */
+    * submitting: 路由 action 被调用（idle -> submitting -> loading -> idle）
+    * loading: 下一个路由 loader 被调用（idle => loading => idle）
+    */
     const navigation = useNavigation();
 
-    /* <Form> 的命令式版本，代替表单提交*/
+    // 命令式导航
+    const navigate = useNavigate()
+
+    // 命令式 <Form>，代替表单提交
     const submit = useSubmit();
 
-    /* navigation.location: 正在导航到下一个路由才有值 */
+    /**
+     * navigation.location: 下一个路由地址
+     * action被调用，此时state=submitting，action完成后location不再有值。
+     */
     const searching =
         navigation.location &&
         new URLSearchParams(navigation.location.search).has(
@@ -69,7 +77,6 @@ export default function Root() {
         );
 
     useEffect(() => {
-        // 解决返回后列表不再过滤，但输入框任保留值
         (document.getElementById('q') as HTMLInputElement).value = q
     }, [q])
 
@@ -78,7 +85,7 @@ export default function Root() {
             <div id="sidebar">
                 <h1>React Router Contacts</h1>
                 <div>
-                    {/* 默认get，不会调用 action，只有 url 会发生改变并调用 loader。*/}
+                    {/* 提供搜索参数，从表单进入url */}
                     <Form id="search-form" role="search">
                         <input
                             id="q"
@@ -87,8 +94,6 @@ export default function Root() {
                             placeholder="Search"
                             type="search"
                             name="q"
-                            // 解决页面刷新后，输入框不再有值
-                            defaultValue={q}
                             onChange={(event) => {
                                 const isFirstSearch = q == null;
                                 // currentTarget.form: input的表单节点
@@ -108,13 +113,12 @@ export default function Root() {
                             aria-live="polite"
                         ></div>
                     </Form>
-                    {/*
-                        突变提交：提交表单时，React Router 将 action 与路由匹配，并使序列化的FormData调用 <Route action>
-                        操作完成后，页面的所有 loader 都会自动重新验证，以保持页面与数据同步
-                        method的值在 action 方法的request.method中
-                    */}
-                    <Form method="post">
+
+                    {/* 突变提交：提交表单时，React Router 将 action 与路由匹配，并使序列化的FormData调用 <Route action> */}
+                    {/* 操作完成后，页面的所有 loader 都会自动重新验证，以保持页面与数据同步 */}
+                    <Form method="post" style={{ display: 'flex', gap: '0.5rem'}}>
                         <button type="submit">New</button>
+                        <button type="button" onClick={() => navigate('/')}>Home</button>
                     </Form>
                 </div>
                 <nav>

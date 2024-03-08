@@ -1,10 +1,9 @@
-import {Form, useLoaderData, LoaderFunctionArgs, useFetcher, ActionFunctionArgs} from "react-router-dom";
+import { Form, useLoaderData, LoaderFunctionArgs, useFetcher, ActionFunctionArgs } from "react-router-dom";
 import { getContact, Contacts, updateContact } from "../contacts.ts";
 
 export async function loader({ params }: LoaderFunctionArgs) {
     const contact = await getContact(params.contactId!);
     if (!contact) {
-        // throw new Error('Not Found')
         throw new Response("", {
             status: 404,
             statusText: "Not Found",
@@ -15,6 +14,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
 
 export async function action({ request, params }: ActionFunctionArgs) {
     const formData = await request.formData();
+
     return updateContact(params.contactId!, {
         favorite: formData.get("favorite") === "true",
     });
@@ -58,13 +58,12 @@ export default function Contact() {
                 {contact.notes && <p>{contact.notes}</p>}
 
                 <div>
-                    {/* 默认get，get提交与普通导航相同（Link），可以提供参数，从表单进入URL*/}
-                    <Form
-                        method="get"
-                        action="edit" // contact/:contactId/edit
-                    >
+                    {/* get提交与普通导航相同（Link），可以提供参数，从表单进入URL（默认为上下文中最近路径的相对 URL）。*/}
+                    <Form action="edit"> {/* contact/:contactId/edit */}
                         <button type="submit">Edit</button>
                     </Form>
+                    {/* 与上面相同 */}
+                    {/* <button onClick={() => navigate('edit')}>Edit</button> */}
                     <Form
                         method="post"
                         action="destroy" // contact/:contactId/destroy
@@ -97,7 +96,8 @@ function Favorite({ contact }: { contact: Contacts }) {
         favorite = fetcher.formData.get("favorite") === "true";
     }
     return (
-        /* 无需导航，调用loader或action。由于没有action，将发送到渲染表单的路由中（contacts/:contactId）。 */
+        // 无需导航（与<Form />基本相同），调用loader或action。
+        // 由于没有action，将发送到渲染表单的路由中（contacts/:contactId）。
         <fetcher.Form method="post">
             <button
                 name="favorite"
