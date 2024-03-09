@@ -2,8 +2,9 @@ import {
     Outlet, useLoaderData, Form, redirect, NavLink,
     useNavigation, LoaderFunctionArgs, useSubmit, useNavigate,
 } from "react-router-dom";
-import { getContacts, createContact, Contacts } from "../contacts.ts";
+import { getContacts, createContact, Contacts } from "./contacts.ts";
 import { useEffect } from "react";
+import './index.css'
 
 export async function loader({ request }: LoaderFunctionArgs) {
     /**
@@ -40,7 +41,7 @@ export async function action() {
      *   return null;
      * };
      */
-    return redirect(`/contacts/${contact.id}/edit`)
+    return redirect(`contacts/${contact.id}/edit`)
 }
 
 export default function Root() {
@@ -68,7 +69,8 @@ export default function Root() {
 
     /**
      * navigation.location: 下一个路由地址
-     * action被调用，此时state=submitting，action完成后location不再有值。
+     * get提交：当正在导航到一个新的URL并执行loader时才有值
+     * 非get提交：navigation.formData
      */
     const searching =
         navigation.location &&
@@ -118,7 +120,7 @@ export default function Root() {
                     {/* 操作完成后，页面的所有 loader 都会自动重新验证，以保持页面与数据同步 */}
                     <Form method="post" style={{ display: 'flex', gap: '0.5rem'}}>
                         <button type="submit">New</button>
-                        <button type="button" onClick={() => navigate('/')}>Home</button>
+                        <button type="button" onClick={() => navigate('/tutorial')}>Home</button>
                     </Form>
                 </div>
                 <nav>

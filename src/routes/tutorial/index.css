@@ -67,6 +67,13 @@ button:focus-visible {
   }
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    background: #ffffff;
+  }
+}
+
+
 html {
   box-sizing: border-box;
 }

@@ -1,12 +1,12 @@
 import { Form, useLoaderData, redirect, ActionFunctionArgs, useNavigate } from "react-router-dom";
-import { Contacts, updateContact } from "../contacts.ts";
+import { Contacts, updateContact } from "./contacts.ts";
 
 export async function action({ request, params }: ActionFunctionArgs) {
     const formData = await request.formData();
     // Object.fromEntries 将键值对列表转换为一个对象
     const updates = Object.fromEntries(formData);
     await updateContact(params.contactId!, updates);
-    return redirect(`/contacts/${params.contactId}`);
+    return redirect(`/tutorial/contacts/${params.contactId}`);
 }
 
 export default function EditContact() {

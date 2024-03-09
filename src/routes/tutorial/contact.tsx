@@ -1,5 +1,5 @@
 import { Form, useLoaderData, LoaderFunctionArgs, useFetcher, ActionFunctionArgs } from "react-router-dom";
-import { getContact, Contacts, updateContact } from "../contacts.ts";
+import { getContact, Contacts, updateContact } from "./contacts.ts";
 
 export async function loader({ params }: LoaderFunctionArgs) {
     const contact = await getContact(params.contactId!);
@@ -96,7 +96,7 @@ function Favorite({ contact }: { contact: Contacts }) {
         favorite = fetcher.formData.get("favorite") === "true";
     }
     return (
-        // 无需导航（与<Form />基本相同），调用loader或action。
+        // 无需导航（与<Form />基本相同，只不过不会导致导航），调用loader或action。
         // 由于没有action，将发送到渲染表单的路由中（contacts/:contactId）。
         <fetcher.Form method="post">
             <button
