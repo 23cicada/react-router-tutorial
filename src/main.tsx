@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import tutorialRoot from './routes/tutorial/main.tsx'
 import authRoot from './routes/auth/main'
+import customLinkRoot from './routes/custom-link/main'
 
 /**
  * createBrowserRouter 使用 HTML5 History API 来保持 UI 和 URL 的同步。
@@ -16,7 +17,8 @@ const router = createBrowserRouter([
         path: '/',
         children: [
             tutorialRoot,
-            authRoot
+            authRoot,
+            customLinkRoot
         ]
     }
 ])

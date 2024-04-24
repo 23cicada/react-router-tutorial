@@ -13,7 +13,7 @@ import { action as destroyAction } from "./destroy.tsx";
 import Index from "./index";
 
 const router: RouteObject = {
-    path: '/tutorial',
+    path: '/',
     element: <Root />,
     // loader、action，或组件渲染异常时被渲染。
     errorElement: <ErrorPage />,
