@@ -7,6 +7,8 @@ import { useEffect } from "react";
 import './index.css'
 
 export async function loader({ request }: LoaderFunctionArgs) {
+
+    await fetch('http://localhost:3000/')
     /**
      * request：发送的 fetch 请求实例（Request 对象）。
      * 正常情况浏览器会向服务器发送请求，但React Router将请求发送给loader。
@@ -84,7 +86,15 @@ export default function Root() {
 
     return (
         <>
-            <div id="sidebar">
+            <div
+                id="sidebar"
+                className="
+                    w-[22rem] bg-[#f7f7f7] border border-solid border-[#e3e3e3] flex-col
+                    *:pl-8 *:pr-8
+                    [&_h1]:text-base [&_h1]:font-medium [&_h1]:flex [&_h1]:items-center
+                    [&_h1]:m-0 [&_h1]:py-4 px-8
+                "
+            >
                 <h1>React Router Contacts</h1>
                 <div>
                     {/* 提供搜索参数，从表单进入url */}

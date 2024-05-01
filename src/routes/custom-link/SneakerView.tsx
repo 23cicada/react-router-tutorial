@@ -2,13 +2,13 @@ import {useParams} from "react-router-dom";
 import {getSneakerById} from "./snkrs";
 
 function SneakerView() {
-    let { id } = useParams<"id">();
+    let { id } = useParams();
 
     // if (!id) {
     //     return <NoMatch />;
     // }
 
-    let snkr = getSneakerById(id);
+    let snkr = getSneakerById(id as string)!;
 
     // if (!snkr) {
     //     return <NoMatch />;

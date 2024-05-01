@@ -180,17 +180,18 @@ form[action$="destroy"] button {
 }
 
 #sidebar {
-  width: 22rem;
+  /* width: 22rem;
   background-color: #f7f7f7;
   border-right: solid 1px #e3e3e3;
   display: flex;
-  flex-direction: column;
+  flex-direction: column; */
 }
 
 #sidebar > * {
-  padding-left: 2rem;
-  padding-right: 2rem;
+  /* padding-left: 2rem;
+  padding-right: 2rem; */
 }
+
 
 #sidebar h1 {
   font-size: 1rem;

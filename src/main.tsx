@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import tutorialRoot from './routes/tutorial/main.tsx'
 import authRoot from './routes/auth/main'
 import customLinkRoot from './routes/custom-link/main'
-
+import './index.css'
 /**
  * createBrowserRouter 使用 HTML5 History API 来保持 UI 和 URL 的同步。
  * 它通过监听浏览器的 pushState 和 popState 事件来实现路由的变化，从而提供了一种更加自然的 URL 结构。
