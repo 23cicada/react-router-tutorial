@@ -1,12 +1,18 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Root, {action as rootAction, loader as rootLoader} from "./routes/root.tsx";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Root, {
+  action as rootAction,
+  loader as rootLoader,
+} from "./routes/root.tsx";
 import ErrorPage from "./routes/error-page.tsx";
 import Index from "./routes";
-import Contact, {action as contactAction, loader as contactLoader} from "./routes/contact.tsx";
-import EditContact, {action as editAction} from "./routes/edit.tsx";
-import {action as destroyAction} from "./routes/destroy.tsx";
+import Contact, {
+  action as contactAction,
+  loader as contactLoader,
+} from "./routes/contact.tsx";
+import EditContact, { action as editAction } from "./routes/edit.tsx";
+import { action as destroyAction } from "./routes/destroy.tsx";
 /**
  * createBrowserRouter 使用 HTML5 History API 来保持 UI 和 URL 的同步。
  * 它通过监听浏览器的 pushState 和 popState 事件来实现路由的变化，从而提供了一种更加自然的 URL 结构。
@@ -15,51 +21,51 @@ import {action as destroyAction} from "./routes/destroy.tsx";
  * createRoutesFromElements：使用JSX配置路由
  */
 const router = createBrowserRouter([
-    {
-        path: '/',
-        element: <Root />,
-        // loader、action，或组件渲染异常时被渲染。
+  {
+    path: "/",
+    element: <Root />,
+    // loader、action，或组件渲染异常时被渲染。
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        /**
+         * Layout Route: 布局路由，没有path的路由，用于将子路由放入到特定布局中。
+         * 当子路由出现任何错误时，布局路由会捕捉并呈现错误，同时保留根路由的用户界面。
+         */
         errorElement: <ErrorPage />,
         children: [
-            {
-                /**
-                 * Layout Route: 布局路由，没有path的路由，用于将子路由放入到特定布局中。
-                 * 当子路由出现任何错误时，布局路由会捕捉并呈现错误，同时保留根路由的用户界面。
-                 */
-                errorElement: <ErrorPage />,
-                children: [
-                    // 索引路由：处于父路由的精确路径时，将匹配此路由
-                    { index: true, element: <Index /> },
-                    {
-                        // URL Params
-                        path: "contacts/:contactId",
-                        element: <Contact />,
-                        loader: contactLoader,
-                        action: contactAction,
-                    },
-                    {
-                        path: "contacts/:contactId/edit",
-                        element: <EditContact />,
-                        loader: contactLoader,
-                        action: editAction,
-                    },
-                    {
-                        // <Form method="post" action="destroy"> 匹配 contacts/:contactId/destroy
-                        path: "contacts/:contactId/destroy",
-                        action: destroyAction,
-                        errorElement: <div>Oops! There was an error.</div>,
-                    }
-                ]
-            }
+          // 索引路由：处于父路由的精确路径时，将匹配此路由
+          { index: true, element: <Index /> },
+          {
+            // URL Params
+            path: "contacts/:contactId",
+            element: <Contact />,
+            loader: contactLoader,
+            action: contactAction,
+          },
+          {
+            path: "contacts/:contactId/edit",
+            element: <EditContact />,
+            loader: contactLoader,
+            action: editAction,
+          },
+          {
+            // <Form method="post" action="destroy"> 匹配 contacts/:contactId/destroy
+            path: "contacts/:contactId/destroy",
+            action: destroyAction,
+            errorElement: <div>Oops! There was an error.</div>,
+          },
         ],
-        // 路由组件渲染前调用（为其提供数据），使用useLoaderData获取loader返回的数据。
-        loader: rootLoader,
-        // 向路由发送非get提交（post、put、patch、delete）时调用，使用useActionData获取action返回的数据。
-        action: rootAction
-    }
-])
-ReactDOM.createRoot(document.getElementById('root')!).render(
+      },
+    ],
+    // 路由组件渲染前调用（为其提供数据），使用useLoaderData获取loader返回的数据。
+    loader: rootLoader,
+    // 向路由发送非get提交（post、put、patch、delete）时调用，使用useActionData获取action返回的数据。
+    action: rootAction,
+  },
+]);
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <RouterProvider router={router} />
   </React.StrictMode>,
-)
+);
