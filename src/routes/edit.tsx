@@ -11,6 +11,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   const formData = await request.formData();
   // Object.fromEntries 将键值对列表转换为一个对象
   const updates = Object.fromEntries(formData);
+  // const hhh = '123'
   console.log("test");
 
   await updateContact(params.contactId!, updates);
