@@ -44,5 +44,9 @@
   },
   "optionalDependencies": {
     "@rollup/rollup-linux-x64-gnu": "4.9.5"
+  },
+  "lint-staged": {
+    "*": "prettier --ignore-unknown --write",
+    "*.{js,jsx,ts,tsx}": "eslint --cache --report-unused-disable-directives --max-warnings 0"
   }
 }
