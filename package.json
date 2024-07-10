@@ -7,7 +7,7 @@
     "dev": "vite --force",
     "build": "tsc && vite build",
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
-    "prettier": "prettier . --write",
+    "prettier": "prettier --write",
     "preview": "vite preview",
     "prepare": "husky"
   },
@@ -46,7 +46,10 @@
     "@rollup/rollup-linux-x64-gnu": "4.9.5"
   },
   "lint-staged": {
-    "*": "prettier --ignore-unknown --write",
-    "*.{js,jsx,ts,tsx}": "eslint --cache --report-unused-disable-directives"
+    "!(*.{js,jsx,ts,tsx})": "prettier --ignore-unknown --write",
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --report-unused-disable-directives --max-warnings 0 --fix",
+      "prettier --write"
+    ]
   }
 }
