@@ -21,7 +21,7 @@ export default tseslint.config(
     },
     rules: {
       ...eslintPluginReactHooks.configs.recommended.rules,
-      "no-console": "warn",
+      "no-console": "error",
     },
   },
 );
