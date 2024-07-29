@@ -1,4 +1,5 @@
 name: react-router-tutorial
+run-name: CI Build - Branch ${{ github.ref_name }} - Commit ${{ github.sha }} - Message ${{ github.event.head_commit.message }}
 on: push
 jobs:
   install-cache:
@@ -9,8 +10,8 @@ jobs:
         with:
           node-version: 20
           cache: "yarn"
-      # --immutable
-      - run: yarn install
+      - run: yarn install # --immutable
+
 
   # lint-format:
   #   runs-on: ubuntu-latest
