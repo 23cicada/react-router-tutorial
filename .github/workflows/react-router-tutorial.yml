@@ -11,7 +11,7 @@ jobs:
           node-version: 20
           cache: "yarn"
       - run: yarn install # --immutable
-      - run: yarn lintformat
+      - run: yarn lintformat-ci
 
   # lint-format:
   #   runs-on: ubuntu-latest

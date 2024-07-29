@@ -7,8 +7,11 @@
     "dev": "vite --force",
     "build": "tsc && vite build",
     "lint": "eslint --fix --report-unused-disable-directives --max-warnings 0",
+    "lint-ci": "eslint --report-unused-disable-directives --max-warnings 0",
     "prettier": "prettier **/* --ignore-unknown --write",
+    "prettier-ci": "prettier **/* --ignore-unknown --check",
     "lintformat": "yarn lint && yarn prettier",
+    "lintformat-ci": "yarn lint-ci && yarn prettier-ci",
     "preview": "vite preview",
     "prepare": "husky"
   },
