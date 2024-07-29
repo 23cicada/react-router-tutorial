@@ -8,13 +8,14 @@ import {
   LoaderFunctionArgs,
   useSubmit,
   useNavigate,
+  defer,
+  Await,
 } from "react-router-dom";
 import { getContacts, createContact, Contacts } from "./contacts.ts";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import "./index.css";
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  // await fetch('http://localhost:3000/')
   /**
    * request：发送的 fetch 请求实例（Request 对象）。
    * 正常情况浏览器会向服务器发送请求，但React Router将请求发送给loader。
@@ -23,8 +24,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
    */
   const url = new URL(request.url);
   const q = url.searchParams.get("q")!;
-  const contacts = await getContacts(q);
-  return { contacts, q };
+  // const contacts = await getContacts(q);
+  // return { contacts, q };
+  return defer({ contacts: getContacts(q), q });
 }
 
 export async function action() {
@@ -136,34 +138,46 @@ export default function Root() {
           </Form>
         </div>
         <nav>
-          {contacts.length ? (
-            <ul>
-              {contacts.map((contact) => (
-                <li key={contact.id}>
-                  {/* NavLink 知道是否处于 active、pending 或 transitioning 状态*/}
-                  <NavLink
-                    to={`contacts/${contact.id}`}
-                    className={({ isActive, isPending }) =>
-                      isActive ? "active" : isPending ? "pending" : ""
-                    }
-                  >
-                    {contact.first || contact.last ? (
-                      <>
-                        {contact.first} {contact.last}
-                      </>
-                    ) : (
-                      <i>No Name</i>
-                    )}{" "}
-                    {contact.favorite && <span>★</span>}
-                  </NavLink>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>
-              <i>No contacts</i>
-            </p>
-          )}
+          <Suspense
+            fallback={
+              <div style={{ position: "relative" }}>
+                <div id="search-spinner" aria-hidden />
+              </div>
+            }
+          >
+            <Await resolve={contacts}>
+              {(contacts: Contacts[]) => {
+                return contacts.length ? (
+                  <ul>
+                    {contacts.map((contact) => (
+                      <li key={contact.id}>
+                        {/* NavLink 知道是否处于 active、pending 或 transitioning 状态*/}
+                        <NavLink
+                          to={`contacts/${contact.id}`}
+                          className={({ isActive, isPending }) =>
+                            isActive ? "active" : isPending ? "pending" : ""
+                          }
+                        >
+                          {contact.first || contact.last ? (
+                            <>
+                              {contact.first} {contact.last}
+                            </>
+                          ) : (
+                            <i>No Name</i>
+                          )}{" "}
+                          {contact.favorite && <span>★</span>}
+                        </NavLink>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p>
+                    <i>No contacts</i>
+                  </p>
+                );
+              }}
+            </Await>
+          </Suspense>
         </nav>
       </div>
       <div
