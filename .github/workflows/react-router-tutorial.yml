@@ -1,5 +1,5 @@
 name: react-router-tutorial
-run-name: CI Build - ${{ github.actor }} - ${{ github.ref_name }} - ${{ github.event.head_commit.message }} - ${{ github.event.head_commit.timestamp }}
+run-name: CI Build:${{ github.actor }} / ${{ github.ref_name }} / ${{ github.event.head_commit.message }} / ${{ github.event.head_commit.timestamp }} / ${{ github.sha }}
 on: push
 jobs:
   Build:
