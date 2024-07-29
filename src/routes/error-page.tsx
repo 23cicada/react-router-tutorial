@@ -23,7 +23,7 @@ export default function ErrorPage() {
    */
   let errorMessage!: string;
 
-  if (isRouteErrorResponse(error)) {
+  if (!!!!isRouteErrorResponse(error)) {
     errorMessage = error.statusText;
   } else if (error instanceof Error) {
     errorMessage = error.message;
