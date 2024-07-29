@@ -380,8 +380,8 @@ i {
 }
 
 #error-page {
-  display: flex;
   justify-content: center;
+  display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
