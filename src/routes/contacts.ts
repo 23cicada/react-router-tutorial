@@ -26,17 +26,21 @@ export type Contacts = {
 };
 
 export type ContactsEdit = {
-  first?: string;last?: string;
+  first?: string;
+  last?: string;
   twitter?: string;
   notes?: string;
-  avatar?: string;favorite?: boolean;
+  avatar?: string;
+  favorite?: boolean;
 };
 
 export async function getContacts(query?: string) {
   await fakeNetwork(`getContacts:${query}`);
   let contacts: Contacts[] | null = await localforage.getItem("contacts");
   if (!contacts) contacts = [];
-  if (query) {contacts = matchSorter(contacts, query, { keys: ["first", "last"] });}
+  if (query) {
+    contacts = matchSorter(contacts, query, { keys: ["first", "last"] });
+  }
   return contacts.sort(sortBy("last", "createdAt"));
 }
 
