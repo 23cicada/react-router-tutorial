@@ -1,0 +1,16 @@
+name: react-router-tutorial
+on: push
+jobs:
+  lint-format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Commit
+        uses: actions/Checkout@v4
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Run lint
+        run: yarn lint
+      - name: Run prettier
+        run: yarn prettier
