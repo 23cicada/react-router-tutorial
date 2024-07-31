@@ -15,8 +15,6 @@ body {
   -webkit-font-smoothing: antialiased;
 
   -moz-osx-font-smoothing: grayscale;
-
-
 }
 
 code {
@@ -25,7 +23,6 @@ code {
 }
 
 html,
-
 body {
   height: 100%;
   margin: 0;
@@ -78,14 +75,16 @@ button:active {
 }
 #contact h1 form button {
   box-shadow: none;
-  font-size: 1.5rem;font-weight: 400;
+  font-size: 1.5rem;
+  font-weight: 400;
   padding: 0;
 }
 #contact h1 form button[value="true"] {
   color: #a4a4a4;
 }
 #contact h1 form button[value="true"]:hover,
-#contact h1 form button[value="false"] {color: #eeb004;
+#contact h1 form button[value="false"] {
+  color: #eeb004;
 }
 
 form[action$="destroy"] button {

@@ -7,6 +7,7 @@
     "dev": "vite --force",
     "build": "tsc && vite build",
     "lint": "eslint --report-unused-disable-directives --no-warn-ignored --max-warnings 0",
+    "lint-fix": "yarn lint --fix",
     "prettier": "prettier **/* --write --ignore-unknown",
     "prettier-ci": "prettier **/* --list-different --ignore-unknown",
     "preview": "vite preview",
@@ -48,7 +49,7 @@
   },
   "lint-staged": {
     "**/*": [
-      "yarn lint --fix",
+      "yarn lint-fix",
       "prettier --write --ignore-unknown"
     ]
   },
