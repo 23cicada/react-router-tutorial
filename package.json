@@ -6,12 +6,9 @@
   "scripts": {
     "dev": "vite --force",
     "build": "tsc && vite build",
-    "lint": "eslint --fix --report-unused-disable-directives --max-warnings 0",
-    "lint-ci": "eslint --report-unused-disable-directives --max-warnings 0",
-    "prettier": "prettier **/* --ignore-unknown --write",
-    "prettier-ci": "prettier **/* --ignore-unknown --check",
-    "lintformat": "yarn lint && yarn prettier",
-    "lintformat-ci": "yarn lint-ci && yarn prettier-ci",
+    "lint": "eslint --report-unused-disable-directives --no-warn-ignored --max-warnings 0",
+    "prettier": "prettier **/* --write --ignore-unknown",
+    "prettier-check": "prettier **/* --check",
     "preview": "vite preview",
     "prepare": "husky"
   },
@@ -50,10 +47,10 @@
     "@rollup/rollup-linux-x64-gnu": "4.9.5"
   },
   "lint-staged": {
-    "!(*.{js,jsx,ts,tsx})": "prettier --ignore-unknown --write",
-    "*.{js,jsx,ts,tsx}": [
-      "eslint --fix --report-unused-disable-directives --max-warnings 0",
-      "prettier --write"
+    "**/*": [
+      "yarn lint --fix",
+      "yarn prettier"
     ]
-  }
+  },
+  "packageManager": "yarn@4.3.1"
 }

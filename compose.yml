@@ -1,9 +1,0 @@
-services:
-  frontend:
-    build:
-      # context : 定义了指向包含 Dockerfile 的目录的路径
-      # 如果没有明确指定，默认为项目目录（.）
-      context: .
-    container_name: frontend
-    ports:
-      - "80:80"

@@ -1,5 +1,10 @@
 name: react-router-tutorial
-run-name: CI Build:${{ github.actor }} / ${{ github.ref_name }} / ${{ github.event.head_commit.message }} / ${{ github.event.head_commit.timestamp }} / ${{ github.sha }}
+run-name: CI Build -
+  Author:${{ github.actor }} -
+  Branch:${{ github.ref_name }} -
+  Message:${{ github.event.head_commit.message }} -
+  Date:${{ github.event.head_commit.timestamp }} -
+  Commit:${{ github.sha }}
 on: push
 jobs:
   Build:
@@ -10,19 +15,6 @@ jobs:
         with:
           node-version: 20
           cache: "yarn"
-      - run: yarn install # --immutable
-      - run: yarn lintformat-ci
-
-  # lint-format:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout Commit
-  #       uses: actions/Checkout@v4
-  #     - name: Use Node.js 20
-  #       uses: actions/setup-node@v4
-  #       with:
-  #         node-version: 20
-  #     - name: Run lint
-  #       run: yarn lint
-  #     - name: Run prettier
-  #       run: yarn prettier
+      - run: yarn install --immutable
+      - run: yarn lint
+      - run: yarn prettier-check
