@@ -20,4 +20,4 @@ jobs:
           cache: "yarn"
       - run: yarn install --immutable
       - run: yarn lint
-      - run: yarn prettier-check
+      - run: yarn prettier-ci
