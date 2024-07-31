@@ -1,6 +1,6 @@
 name: react-router-tutorial
 concurrency:
-  group: ${{ github.head_ref }}
+  group: ${{ github.head_ref || github.ref_name }}
   cancel-in-progress: true
 run-name: CI Build -
   Author:${{ github.actor }} -
