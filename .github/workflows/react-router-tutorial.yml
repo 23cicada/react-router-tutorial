@@ -1,4 +1,7 @@
 name: react-router-tutorial
+concurrency:
+  group: ${{ github.head_ref }}
+  cancel-in-progress: true
 run-name: CI Build -
   Author:${{ github.actor }} -
   Branch:${{ github.ref_name }} -
@@ -17,4 +20,4 @@ jobs:
           cache: "yarn"
       - run: yarn install --immutable
       - run: yarn lint
-      - run: yarn prettier --check
+      - run: yarn prettier-check
