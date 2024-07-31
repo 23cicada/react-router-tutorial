@@ -49,7 +49,7 @@
   "lint-staged": {
     "**/*": [
       "yarn lint --fix",
-      "yarn prettier"
+      "prettier --write --ignore-unknown"
     ]
   },
   "packageManager": "yarn@4.3.1"
